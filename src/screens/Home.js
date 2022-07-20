@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Pressable } from 'react-native';
 import React from 'react';
 import Text from '../components/text/text';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,33 +8,34 @@ import { FlatList } from 'react-native';
 import { PLANET_LIST } from '../data/PlanetList';
 import { spacing } from '../../src/theme/spacing';
 import { AntDesign } from '@expo/vector-icons';
-import { ScrollView } from 'react-native';
-
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <PlanetHeader />
-        <FlatList
-          contentContainerStyle={styles.lists}
-          data={PLANET_LIST}
-          renderItem={({ item }) => {
-            const { name, color } = item;
-            return (
-              <View style={styles.item}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <View style={[styles.circle, { backgroundColor: color }]} />
-                  <Text preset="h3" style={styles.textItem}>
-                    {name}
-                  </Text>
-                </View>
-                <AntDesign name="right" size={18} color="white" />
+      <PlanetHeader />
+      <FlatList
+        contentContainerStyle={styles.lists}
+        data={PLANET_LIST}
+        renderItem={({ item }) => {
+          const { name, color } = item;
+          return (
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Details');
+              }}
+              style={styles.item}
+            >
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={[styles.circle, { backgroundColor: color }]} />
+                <Text preset="h3" style={styles.textItem}>
+                  {name}
+                </Text>
               </View>
-            );
-          }}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
-        />
-      </ScrollView>
+              <AntDesign name="right" size={18} color="white" />
+            </Pressable>
+          );
+        }}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </SafeAreaView>
   );
 }

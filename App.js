@@ -1,10 +1,9 @@
 import { useFonts } from 'expo-font';
 import { StyleSheet } from 'react-native';
-import { colors } from './src/theme/colors';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/screens/Home';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Details from './src/screens/Details';
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
@@ -21,6 +20,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>
       <StatusBar />
     </NavigationContainer>
@@ -30,8 +30,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
