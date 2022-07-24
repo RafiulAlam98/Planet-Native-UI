@@ -8,32 +8,41 @@ import { FlatList } from 'react-native';
 import { PLANET_LIST } from '../data/PlanetList';
 import { spacing } from '../../src/theme/spacing';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+const PlanetItem = ({ item }) => {
+  const { name, color } = item;
+  const navigation = useNavigation();
+  return (
+    <Pressable
+      onPress={() => {
+        navigation.navigate('Details', { planet: item });
+      }}
+      style={styles.item}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={[styles.circle, { backgroundColor: color }]} />
+        <Text preset="h3" style={styles.textItem}>
+          {name}
+        </Text>
+      </View>
+      <AntDesign name="right" size={18} color="white" />
+    </Pressable>
+  );
+};
+
 export default function Home({ navigation }) {
+  const renderItem = ({ item }) => {
+    return <PlanetItem item={item} />;
+  };
   return (
     <SafeAreaView style={styles.container}>
       <PlanetHeader />
       <FlatList
         contentContainerStyle={styles.lists}
         data={PLANET_LIST}
-        renderItem={({ item }) => {
-          const { name, color } = item;
-          return (
-            <Pressable
-              onPress={() => {
-                navigation.navigate('Details');
-              }}
-              style={styles.item}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={[styles.circle, { backgroundColor: color }]} />
-                <Text preset="h3" style={styles.textItem}>
-                  {name}
-                </Text>
-              </View>
-              <AntDesign name="right" size={18} color="white" />
-            </Pressable>
-          );
-        }}
+        keyExtractor={item => item.name}
+        renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </SafeAreaView>

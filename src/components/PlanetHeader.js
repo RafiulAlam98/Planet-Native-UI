@@ -32,7 +32,7 @@ export default function PlanetHeader({ backBtn }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing[4],
+    padding: spacing[6],
     borderBottomColor: colors.white,
     borderBottomWidth: 0.4,
     flexDirection: 'row',
