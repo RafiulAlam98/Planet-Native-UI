@@ -5,6 +5,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../theme/colors';
 import PlanetHeader from '../components/PlanetHeader';
 import { spacing } from '../theme/spacing';
+import {
+  EarthSvg,
+  JupiterSvg,
+  MarsSvg,
+  MercurySvg,
+  NeptuneSvg,
+  SaturnSvg,
+  UranusSvg,
+  VenusSvg,
+} from '../svg/index';
 
 const PlanetSection = ({ title, value }) => {
   return (
@@ -27,12 +37,26 @@ export default function Details({ route }) {
     wikiLink,
   } = planet;
 
-  // const renderImage = (name)=>{
-  //   switch(name){
-  //     case 'mercury':
-  //       return
-  //   }
-  // }
+  const renderImage = () => {
+    switch (name) {
+      case 'mercury':
+        return <MercurySvg />;
+      case 'venus':
+        return <VenusSvg />;
+      case 'earth':
+        return <EarthSvg />;
+      case 'mars':
+        return <MarsSvg />;
+      case 'jupiter':
+        return <JupiterSvg />;
+      case 'saturn':
+        return <SaturnSvg />;
+      case 'uranus':
+        return <UranusSvg />;
+      case 'neptune':
+        return <NeptuneSvg />;
+    }
+  };
   const linkingWiki = () => {
     Linking.openURL(wikiLink);
   };
@@ -41,7 +65,7 @@ export default function Details({ route }) {
       <PlanetHeader backBtn={true} />
       <ScrollView>
         <View style={styles.imageView}>
-          <Text>Image</Text>
+          <Text>{renderImage(name)}</Text>
         </View>
         <View style={styles.detailsView}>
           <Text preset="h1" style={styles.name}>
